@@ -1,0 +1,80 @@
+﻿@model Hostell.Models.Block
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<div class="dropright">
+    <h4 class="text-center">Информация о блоке</h4>
+    <hr />
+    <dl class="row">
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NoBlock)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NoBlock)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberOfPlace)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfPlace)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OccupiedPlace)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OccupiedPlace)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Floor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Floor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Balcony)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Balcony == true)
+            {
+                <p>Да</p>
+            }
+            else
+            {
+                <p>Нет</p>
+            }
+        </dd>
+    </dl>
+</div>
+<div class="table-bordered table-primary">
+    <h2 class="text-center">Проживающие блока</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <h4>Имя</h4> 
+                </th>
+                <th>
+                    <h4>Фамилия</h4> 
+                </th>
+                <th></th>
+        </thead>
+        <tbody>
+            
+            @foreach (Resident resident in Model.People)
+            {<tr>
+                 <td>@resident.Name</td> 
+                 <td>@resident.Sname</td> 
+                 <td><a asp-controller="Resident" asp-action="Details" asp-route-id="@resident.Id">Подробнее</a></td> 
+</tr>
+            }
+        </tbody>
+        </table>
+</div>
+<br />
+<div class="text-center">
+    <a asp-action="Edit" asp-route-id="@Model.Id">Редактировать</a> |
+    <a asp-action="Main">К списку блоков</a>
+</div>
