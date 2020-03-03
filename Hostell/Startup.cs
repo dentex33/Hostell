@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hostell
 {
@@ -25,6 +26,8 @@ namespace Hostell
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<HostelAppContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
+            services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserDbConnection")));
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UserDbContext>(); 
             services.AddMvc();
         }
 
@@ -38,6 +41,7 @@ namespace Hostell
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
